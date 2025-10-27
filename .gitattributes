@@ -1,0 +1,7 @@
+# Normalizar finales de línea automáticamente
+* text=auto
+
+# Forzar LF para archivos de código
+*.ts text eol=lf
+*.js text eol=lf
+*.json text eol=lf
