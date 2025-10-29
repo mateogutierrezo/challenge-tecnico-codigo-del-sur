@@ -1,15 +1,7 @@
-import express from "express";
-const app = express();
+import { app } from './app';
 
-app.use(express.json())
-
-const PORT = 3000
-
-app.get('/prueba', (_req, res) => {
-  console.log('esto es una prueba')
-  res.send('respuesta')
-})
+const PORT = 3000;
 
 app.listen(PORT, () => {
-  console.log(`searver running on port ${PORT}`)
-})
+  console.log(`🚀 Server listening on port ${PORT}`);
+});

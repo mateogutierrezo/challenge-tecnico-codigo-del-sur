@@ -14,8 +14,8 @@
     // "lib": ["esnext"],
     // "types": ["node"],
     // and npm install -D @types/node
-
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     // Other Outputs
     "sourceMap": true,
     "declaration": true,
@@ -41,5 +41,6 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+  },
+  "include": ["src/**/*", "src/types/**/*.d.ts"]
 }
