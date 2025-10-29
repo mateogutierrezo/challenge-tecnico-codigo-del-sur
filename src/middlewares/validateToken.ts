@@ -1,17 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
-import { loggedOutTokens } from '../utils/loggedOutTokens';
+import { isTokenLoggedOut } from '../utils/loggedOutTokens';
 
+// Validar el token ingresado 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers['authorization'];
   const token = authHeader?.split(' ')[1]; 
 
   if (!token) {
-    res.status(401).json({ message: 'Token missing' });
+    res.status(401).json({ message: 'Missing token' });
     return;
   }
 
-   if (loggedOutTokens.has(token)) {
+   if (isTokenLoggedOut(token)) {
     res.status(401).json({ message: 'Invalid token' });
     return;
   }
@@ -20,7 +21,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     const decoded = verifyToken(token) as { id: string };
     req.userId = decoded.id; 
     next();
-  } catch (err) {
+  } catch (error) {
     res.status(403).json({ message: 'Invalid token' });
     return;
   }

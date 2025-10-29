@@ -1,28 +1,27 @@
 import { Router } from 'express';
-import { registerUser, loginUser } from '../controllers/auth.controller';
-import { registerValidation, loginValidation } from '../validators/auth.validator';
+import { signUpUser, loginUser, logoutUser } from '../controllers/auth.controller';
+import { signUpValidation, loginValidation } from '../validators/auth.validator';
 import { handleValidation } from '../middlewares/handleValidation';
 import { checkExtraFields } from '../middlewares/checkExtraFields';
-import { logout } from '../controllers/auth.controller';
 import { authenticateToken } from '../middlewares/validateToken';
 
 const router = Router();
 
-// POST /api/auth/register
+// POST /api/auth/signup
 router.post(
-  '/register', 
-  registerValidation, 
-  handleValidation, 
-  checkExtraFields(['email', 'firstName', 'lastName', 'password']), 
-  registerUser
+  '/signup', 
+  signUpValidation,
+  handleValidation,
+  checkExtraFields(['email', 'firstName', 'lastName', 'password']),
+  signUpUser
 );
 
 // POST /api/auth/login
 router.post(
-  '/login', 
-  loginValidation, 
-  handleValidation, 
-  checkExtraFields(['email', 'password']), 
+  '/login',
+  loginValidation,
+  handleValidation,
+  checkExtraFields(['email', 'password']),
   loginUser
 );
 
@@ -30,7 +29,7 @@ router.post(
 router.post(
   '/logout',
   authenticateToken,
-  logout
+  logoutUser
 )
 
 export default router;

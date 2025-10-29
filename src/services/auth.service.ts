@@ -1,9 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { User } from '../types/User.js';
+import { User } from '../types/User';
 import { generateToken } from '../utils/jwt';
 import { v4 as uuidv4 } from 'uuid';
 import { comparePassword, hashPassword } from '../utils/hash';
+import { logoutToken } from '../utils/loggedOutTokens';
 
 const USERS_FILE = path.join(__dirname, '../../data/users.json');
 
@@ -12,9 +13,9 @@ const readUsers = async (): Promise<User[]> => {
   try {
     const data = await fs.readFile(USERS_FILE, 'utf-8').catch(() => '[]');
     return JSON.parse(data) as User[];
-  } catch (err) {
-    console.error('Error reading users.json:', err);
-    throw err;
+  } catch (error) {
+    console.error('Error reading users.json:', error);
+    throw error;
   }
 };
 
@@ -22,9 +23,9 @@ const readUsers = async (): Promise<User[]> => {
 const writeUsers = async (users: User[]) => {
   try {
     await fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2));
-  } catch (err) {
-    console.error('Error writing users.json:', err);
-    throw err;
+  } catch (error) {
+    console.error('Error writing users.json:', error);
+    throw error;
   }
 };
 
@@ -86,3 +87,9 @@ export const login = async (data: LoginData): Promise<string> => {
   // Dovolver token
   return generateToken(user.id);
 };
+
+
+export const logout = async (token: string) => {
+  logoutToken(token);
+  return { message: 'Logged out successfully' };
+}

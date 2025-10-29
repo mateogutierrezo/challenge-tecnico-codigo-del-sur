@@ -3,7 +3,7 @@ import path from 'path';
 import { Favorites } from '../types/Favorites';
 import { fetchMovies, validateMovieId } from '../utils/TMDBapi';
 import { getCurrentDate } from '../utils/date';
-import { getRandomSuggestionScoreForToday } from '../utils/random';
+import { getRandomSuggestionForTodayScore } from '../utils/random';
 
 const FAVORITES_FILE = path.join(__dirname, '../../data/favorites.json');
 
@@ -12,9 +12,9 @@ const readFavorites = async (): Promise<Favorites> => {
   try {
     const data = await fs.readFile(FAVORITES_FILE, 'utf-8').catch(() => '{}');
     return JSON.parse(data) as Favorites;
-  } catch (err) {
-    console.error('Error reading favorites.json:', err);
-    throw err;
+  } catch (error) {
+    console.error('Error reading favorites.json:', error);
+    throw error;
   }
 };
 
@@ -22,9 +22,9 @@ const readFavorites = async (): Promise<Favorites> => {
 const writeFavorites = async (favorites: Favorites) => {
   try {
     await fs.writeFile(FAVORITES_FILE, JSON.stringify(favorites, null, 2));
-  } catch (err) {
-    console.error('Error writing favorites.json:', err);
-    throw err;
+  } catch (error) {
+    console.error('Error writing favorites.json:', error);
+    throw error;
   }
 };
 
@@ -58,6 +58,7 @@ export const addToFavoritesService = async (userId: string, movieId: number) => 
   return { message: `Movie ${movieId} successfully added to favorites` };
 }
 
+// Obtener las películas favoritas del usuario 
 export const getFavoritesService = async (userId: string) => {
   const favorites = await readFavorites();
   
@@ -67,18 +68,20 @@ export const getFavoritesService = async (userId: string) => {
 
   const movies = await fetchMovies();
 
+  // a cada película se le agrega addedAt y suggestionForTodayScore
   let favoritesInfo = userFavorites.map((fav) => {
     const movie = movies.find(m => m.id === fav.movieId);
     if (!movie) return null;
     return {
       ...movie,
       addedAt: fav.addedAt,
-      suggestionForToday: getRandomSuggestionScoreForToday(movie.id)
+      suggestionForTodayScore: getRandomSuggestionForTodayScore(movie.id)
 
     };
   }).filter(Boolean);
 
-  favoritesInfo.sort((a, b) => b.suggestionForToday - a.suggestionForToday)
+  // ordenar la lista de películas según su suggestionForTodayScore
+  favoritesInfo.sort((a, b) => b.suggestionForTodayScore - a.suggestionForTodayScore)
   
   return favoritesInfo
 }

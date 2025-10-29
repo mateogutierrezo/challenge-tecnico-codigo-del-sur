@@ -20,6 +20,7 @@ export const addToFavorites = async (req: Request, res: Response) => {
 
 export const getFavorites = async (req: Request, res: Response) => {
   try {
+    // obtener el id del usuario.
     const userId = req.userId as string;
     const favorites = await getFavoritesService(userId);
     res.status(200).json(favorites);

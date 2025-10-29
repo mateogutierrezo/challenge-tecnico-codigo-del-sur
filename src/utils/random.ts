@@ -7,7 +7,7 @@ export const getRandomSuggestionScore = (): number => {
 }
 
 // se usa una semilla que dependa del id y la fecha para que el random sea único por día.
-export const getRandomSuggestionScoreForToday = (movieId: number): number => {
+export const getRandomSuggestionForTodayScore = (movieId: number): number => {
   const today = getCurrentDate();
   const randomGenerator = seedrandom(`${movieId}-${today}`);
   return Math.floor(randomGenerator() * 100);

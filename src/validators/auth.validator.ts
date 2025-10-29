@@ -1,6 +1,7 @@
 import { body } from 'express-validator';
 
-export const registerValidation = [
+// Validar los campos de registro
+export const signUpValidation = [
   body('email')
     .isEmail()
     .withMessage('Must be a valid email'),
@@ -18,6 +19,7 @@ export const registerValidation = [
     .withMessage('Password must be at least 6 characters long'),
 ];
 
+// Validar los campos de login
 export const loginValidation = [
   body('email')
     .isEmail()

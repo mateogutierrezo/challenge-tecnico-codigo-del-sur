@@ -8,7 +8,7 @@ let cachedMovies: any[] | null = null;
 export const fetchMovies = async () => {
   const response = await fetch('https://api.themoviedb.org/3/movie/popular?language=es-ES&page=1', {
     headers: {
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
       accept: 'application/json',
     },
   });
@@ -19,7 +19,7 @@ export const fetchMovies = async () => {
   return cachedMovies || [];
 }
 
-// Valida que movieId pertenezca a una película de la API themoviedb
+// Validar que movieId pertenezca a una película de la API themoviedb
 export const validateMovieId = async (movieId: number): Promise<boolean> => {
    if (!cachedMovies) {
     await fetchMovies();

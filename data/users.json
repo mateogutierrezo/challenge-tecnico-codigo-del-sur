@@ -1,23 +1,9 @@
 [
   {
-    "id": "130fdd71-1919-4933-8830-9d5139a283f1",
-    "email": "msas@gmail.com",
-    "firstName": "mateo",
-    "lastName": "Gutiérrez",
-    "password": "$2b$10$7Jaf4fEKm6.T9tQiE4c3heT7QrzR1iYDNcGAan5K.jL2lDojN1OXi"
-  },
-  {
-    "id": "16f867c9-c773-4bc7-a03e-fabedac46110",
-    "email": "vale@gmail.com",
-    "firstName": "valentina",
-    "lastName": "bellon",
-    "password": "$2b$10$suP63NA7CIykocPT.VVXMeEzCAjYG8tE.LDgqbyNUIIssRGIC3VcS"
-  },
-  {
-    "id": "31610aa4-bbbd-4301-b275-0e064b8bb5e3",
-    "email": "a@gmail.com",
-    "firstName": "mateo",
-    "lastName": "gutierrez",
-    "password": "$2b$10$HYIYYrsvUQd4JDwuGvM4seg7dyVKQNsQogPxGgJdGwZU3CC8GWfTq"
+    "id": "819df88d-feca-411c-8171-8152f747635a",
+    "email": "test@test.com",
+    "firstName": "test",
+    "lastName": "user",
+    "password": "$2b$10$d9hVjkZ/AmpC58Pvjgamku7MsZTO5NX1Uw/QThiEvgqxMBSbLuVeu"
   }
 ]
